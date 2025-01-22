@@ -3,24 +3,23 @@ package org.example.tests
 import io.appium.java_client.AppiumBy
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.android.options.UiAutomator2Options
-import org.openqa.selenium.WebElement
 import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 import java.net.MalformedURLException
 import java.net.URL
 
+
 class AppiumTest {
 
     private lateinit var driver: AndroidDriver
+    private val appPath = "/Users/kamilpoznakowski/Documents/Projects_my/AppForAppium/app/build/outputs/apk/debug/app-debug.apk"
 
     @BeforeClass
     fun setUp() {
         val options = UiAutomator2Options()
         options.setDeviceName("Android Emulator")  // Nazwa emulatora lub urządzenia
-
-        // TODO add path do correct apk
-        options.setApp("path/to/your/app.apk")  // Ścieżka do pliku APK aplikacji
+        options.setApp(appPath)  // Ścieżka do pliku APK aplikacji
 
         try {
             driver = AndroidDriver(URL("http://127.0.0.1:4723"), options)
@@ -31,19 +30,11 @@ class AppiumTest {
 
     @Test
     fun testButtonClick() {
-        // Znajdź element przyciskiem ID
-
-        // todo add tag in app in composable button by Modifier.testTeg(<String>), add that tag here
-        // replace that code by
-        // val button = driver.findElement(AppiumBy.accessibilityId("myButton"))
-        val button: WebElement = driver.findElement(AppiumBy.id("com.example:id/button"))
-
-
+        val button = driver.findElement(AppiumBy.accessibilityId("SaveButton"))
         button.click()
+        val result = driver.findElement(AppiumBy.accessibilityId("SavedTextView"))
 
-        // Weryfikacja tekstu na ekranie
-        val result: WebElement = driver.findElement(AppiumBy.id("com.example:id/result"))
-        assert(result.text == "Expected Result")
+        assert(result.text == "No text")
     }
 
     @AfterClass
