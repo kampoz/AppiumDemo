@@ -13,6 +13,8 @@ dependencies {
 
     // TestNG for testing
     testImplementation("org.testng:testng:7.8.0")
+
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.17.2")
 }
 
 tasks.test {
